@@ -45,12 +45,11 @@ bot.on('message', (msg) => {
 				i,
 				r
 			]
-		).then((jres)=>{
+		).then((jres1)=>{
             v = parseFloatjres1[0]
             p = parseFloatjres1[1]
             
-            cls_model.classify([i, r, v, p]).then((jres2)=> {
-            })
+            cls_model.classify([i, r, v, p]).then((jres2)=> { 
             
 			bot.sendMessage(
 				msg.chat.id,
