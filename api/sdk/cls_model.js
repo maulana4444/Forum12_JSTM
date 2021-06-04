@@ -7,14 +7,14 @@ function normalized(data){ // i & r
     p = (data[3] - 10620.56) / 12152.78
     return [i, r, v, p]
 }
-const argfact = (comparefn) => (array) => array.map((el, idx) => [el, idx]).reduce(comparefn)[1]
-const argmax = argfact((min, e1) => (e1[0] > min[0] ? el : min))
+const argFact = (compareFn) => (array) => array.map((el, idx) => [el, idx]).reduce(compareFn)[1]
+const argMax = argFact((min, e1) => (e1[0] > min[0] ? e1: min))
 
 function ArgMax(res){
     label ="NORMAL"
-    if (ArgMax(res) == 1){ 
+    if (argMax(res) == 1){ 
          label ="OVER VOLTAGE"
-    }if (ArgMax(res) == 2)( 
+    }if (argMax(res) == 2)( 
          label ="DROP VOLTAGE"
     }
     return label   
