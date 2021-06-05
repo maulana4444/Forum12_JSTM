@@ -18,7 +18,7 @@ bot.onText(/\/start/, (msg) => {
         `hello ${msg.chat.first_name}, welcome...\n
         click /predict`
     );
-	state = 0;
+    state = 0;
 });
 
 //input requires i dan r 
@@ -26,41 +26,41 @@ bot.onText(/\/predict/, (msg) => {
     bot.sendMessage(
         msg.chat.id,
         `masukkan nilai i|v contoh 9|9`
-    );   
+    );
     state = 1
 });
 
 bot.on('message', (msg) => {
-	if(state == 1){
-		s = msg.text.split("|");
-		i = parseFloats(s[0])
-		v = parseFLoat(s[1])
+    if(state == 1){
+	s = msg.text.split("|");
+	i = parseFloats(s[0])
+	v = parseFLoat(s[1])
         
-		model.predict(
-			[
-				i, // string to float
-				r
-			]
-		).then((jres1)=>{
-			v = parseFloat(jres1[0])
-			p = parseFloat(jres1[1])
+	model.predict(
+	    [
+		i, // string to float
+		r
+	    ]
+	).then((jres1)=>{
+	    v = parseFloat(jres1[0])
+	    p = parseFloat(jres1[1])
 			
-			cls_model.classify([i, r, v, p]).then((jres2)=> {
-				bot.sendMessage(
-					msg.chat.id,
-					`nilai v yang diprediksi adalah ${v} volt`
-				);
-				bot.sendMessage(
-					msg.chat.id,
-					`nilai p yang diprediksi adalah ${p} watt`
-				);
-				bot.sendMessage(
-					msg.chat.id,
-					`Klasifikasi Tegangan ${jres2}`
-				);
+	    cls_model.classify([i, r, v, p]).then((jres2)=> {
+		bot.sendMessage(
+			msg.chat.id,
+			`nilai v yang diprediksi adalah ${v} volt`
+		);
+		bot.sendMessage(
+			msg.chat.id,
+			`nilai p yang diprediksi adalah ${p} watt`
+		);
+			bot.sendMessage(
+			msg.chat.id,
+			`Klasifikasi Tegangan ${jres2}`
+		);
 		
-        })
-    })
+	    })
+	})
     }else {
         state = 0 
         }
@@ -68,7 +68,7 @@ bot.on('message', (msg) => {
 
 // routers
 r.get('/classify/:i/:r', function(req, res, next) {    
-    model.classify(
+    model.predict(
         [
             parseFloat(req.params.i), // string to float
             parseFloat(req.params.r)
@@ -81,9 +81,9 @@ r.get('/classify/:i/:r', function(req, res, next) {
                 parseFloat(jres[0])
                 parseFloat(jres[1])
             ]
-    ).then((jres)=>{
-        res.json(jres);
-    })
+    	).then((jres)=>{
+            res.json(jres);
+    	})
     })
 });
 
