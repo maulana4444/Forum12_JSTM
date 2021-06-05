@@ -13,7 +13,6 @@ const bot = new TelegramBot(token, {polling: true});
 state = 0;
 // Main Menu Bot
 bot.onText(/\/start/, (msg) => { 
-    console.log(msg)
     bot.sendMessage(
         msg.chat.id,
         `hello ${msg.chat.first_name}, welcome...\n
@@ -24,15 +23,12 @@ bot.onText(/\/start/, (msg) => {
 
 //input requires i dan r 
 bot.onText(/\/predict/, (msg) => { 
-    console.log(msg)
     bot.sendMessage(
         msg.chat.id,
         `masukkan nilai i|v contoh 9|9`
     );   
     state = 1
 });
-
-
 
 bot.on('message', (msg) => {
 	if(state == 1){
